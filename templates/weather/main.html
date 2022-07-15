@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} Weather App {{ block.super }} {% endblock %}
+
+{% block content %}
+
+
+    <div>
+        <div>
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="form-name">{{ form.name }}</div>
+
+                <button class="button" type="submit">Узнать погоду</button>
+            </form>
+        </div>
+
+        {% for city_weather in weather_data %}
+            <div class="card" style="width: 32rem;">
+                <div class="card-header">
+                    <span>Информация о погоде <img class="icon" src="http://openweathermap.org/img/w/{{ city_weather.icon }}.png" alt="Не получилось загрузить изображение"></span>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><b>Город: </b>{{ city_weather.city }}</li>
+                    <li class="list-group-item"><b>Температура: </b>{{ city_weather.temp }}</li>
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
